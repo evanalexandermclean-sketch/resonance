@@ -25,6 +25,7 @@ targets:
     dependencies:
       - package: AMSMB2
     info:
+      path: Resonance/Info.plist
       properties:
         CFBundleDisplayName: Resonance
         CFBundleShortVersionString: "1.0"

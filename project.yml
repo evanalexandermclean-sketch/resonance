@@ -1,0 +1,57 @@
+# Xcode project is generated — do NOT hand-edit a .xcodeproj.
+# Local (Mac):  brew install xcodegen && xcodegen generate
+# CI does the same on every run (see .github/workflows/ios.yml).
+name: Resonance
+
+options:
+  bundleIdPrefix: com.resonance
+  deploymentTarget:
+    iOS: "17.0"
+
+# SMB support. Verified: AMSMB2 v4 API (SMB2Manager), default branch master.
+# LGPL-2.1 note: SPM links it dynamically, which is App Store compatible.
+packages:
+  AMSMB2:
+    url: https://github.com/amosavian/AMSMB2
+    from: 4.0.0
+
+targets:
+  Resonance:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Resonance
+    dependencies:
+      - package: AMSMB2
+    info:
+      properties:
+        CFBundleDisplayName: Resonance
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        LSRequiresIPhoneOS: true
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UIBackgroundModes:
+          - audio
+        NSLocalNetworkUsageDescription: Resonance needs local network access to find and stream from your NAS (DLNA/UPnP and SMB).
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.resonance.app
+        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_STYLE: Automatic
+        SWIFT_VERSION: "5.0"
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+
+schemes:
+  Resonance:
+    build:
+      targets:
+        Resonance: all
+    run:
+      config: Debug
+    archive:
+      config: Release

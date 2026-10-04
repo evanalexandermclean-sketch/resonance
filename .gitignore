@@ -1,0 +1,20 @@
+# Xcode / generated
+build/
+DerivedData/
+*.xcuserdata/
+Resonance.xcodeproj/
+*.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
+
+# Fastlane / signing
+fastlane/report.xml
+fastlane/Preview.html
+*.ipa
+*.dSYM.zip
+
+# macOS
+.DS_Store
+
+# Local agent config (machine-specific, never commit)
+.opencode/
+opencode.json

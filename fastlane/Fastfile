@@ -1,0 +1,28 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Build release and upload to TestFlight"
+  lane :beta do
+    api_key = app_store_connect_api_key(
+      key_id: ENV.fetch("ASC_KEY_ID"),
+      issuer_id: ENV.fetch("ASC_ISSUER_ID"),
+      key_content: ENV.fetch("ASC_PRIVATE_KEY"),
+      is_key_content_base64: false,
+      in_house: false
+    )
+    build_app(
+      project: "Resonance.xcodeproj",
+      scheme: "Resonance",
+      export_method: "app-store",
+      xcargs: "-allowProvisioningUpdates",
+      export_options: {
+        teamID: ENV.fetch("APPLE_TEAM_ID"),
+        signingStyle: "automatic"
+      }
+    )
+    pilot(
+      api_key: api_key,
+      skip_waiting_for_build_processing: true
+    )
+  end
+end
